@@ -41,7 +41,7 @@ namespace Blog.API.Controllers
             catch (Exception e)
             {
                 mLogger.LogError($"Error occurred in GetAllPosts action: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
+                return StatusCode(500, $"Internal Server Error : {e.Message}");
             }
         }
 

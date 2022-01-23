@@ -15,11 +15,16 @@ using System.Threading.Tasks;
 using Blog.Contracts;
 using Blog.Entities;
 using Blog.Repository;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Blog.API
 {
     public class Startup
     {
+        private const string cAPI_Name = "Blog API";
+        private const string cAPI_Version = "v1";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -29,11 +34,11 @@ namespace Blog.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<RepositoryContext>(options =>
+            _ = services.AddDbContext<RepositoryContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("Blog")));
 
-            services.AddDefaultIdentity<IdentityUser>(options =>
+            _ = services.AddDefaultIdentity<IdentityUser>(options =>
                 {
                     // These options are on by default - disabled for simplicity when seeding IdentityUser
                     options.Password.RequireDigit = false;
@@ -44,14 +49,34 @@ namespace Blog.API
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<RepositoryContext>();
 
-            services.AddControllersWithViews();
-            services.AddRazorPages();
+            //_ = services.AddControllersWithViews();
+            _ = services.AddControllers();
+            //_ = services.AddRazorPages();
 
             // Inject Repository Wrapper
-            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+            _ = services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 
             // Inject AutoMapper
-            services.AddAutoMapper(typeof(Startup));
+            _ = services.AddAutoMapper(typeof(Startup));
+
+            //_ = services.AddSwaggerGen(c =>
+            //{
+            //    c.SwaggerDoc(cAPI_Version,
+            //        new OpenApiInfo
+            //        {
+            //            Title = cAPI_Name,
+            //            Version = cAPI_Version,
+            //            Description = "ASP.NET Core Blog API"
+            //        });
+            //});
+
+            _ = services.AddCors(options =>
+                {
+                    options.AddDefaultPolicy(builder =>
+                    {
+                        _ = builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                    });
+                });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -65,20 +90,30 @@ namespace Blog.API
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
-
+            //app.UseStaticFiles();
             app.UseRouting();
 
-            app.UseAuthentication();
+            //app.UseAuthentication();
             //app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
+            //_ = app.UseSwagger();
+            //_ = app.UseSwaggerUI(c =>
+            //{
+            //    //c.SwaggerEndpoint("/swagger/v1/swagger.json", $"{cAPI_Name} {cAPI_Version} ");
+            //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Blog.API v1");
+            //    c.ConfigObject.DefaultModelExpandDepth = -1;
+            //});
+
+
+            _ = app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+
         }
     }
 }
