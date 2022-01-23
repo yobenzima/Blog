@@ -6,3 +6,5 @@
 /Blog.Entities/App_Data
 /Blog.Contracts/bin
 /Blog.Contracts/obj
+/Blog.Repository/bin
+/Blog.Repository/obj
