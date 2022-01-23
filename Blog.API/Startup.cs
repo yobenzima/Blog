@@ -14,6 +14,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Blog.Contracts;
 using Blog.Entities;
+using Blog.Repository;
 
 namespace Blog.API
 {
@@ -45,6 +46,12 @@ namespace Blog.API
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            // Inject Repository Wrapper
+            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+
+            // Inject AutoMapper
+            services.AddAutoMapper(typeof(Startup));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
