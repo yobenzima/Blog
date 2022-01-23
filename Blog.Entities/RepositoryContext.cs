@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Blog.Entities.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Entities
 {
-    public class RepositoryContext: DbContext
+    public class RepositoryContext: IdentityDbContext
     {
         public RepositoryContext(DbContextOptions options)
             :base(options)
