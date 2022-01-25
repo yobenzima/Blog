@@ -20,6 +20,10 @@ namespace Blog.Entities.DataTransferObjects
         [StringLength(120, ErrorMessage = "Email Address Cannot Exceed 120 Characters!")]
         public string EmailAddress { get; set; }
 
+        [Required(ErrorMessage = "Message Subject Cannot Be Empty!")]
+        [StringLength(50, ErrorMessage = "Message Subject Cannot Exceed 50 Characters!")]
+        public string Subject { get; set; }
+
         [Required(ErrorMessage = "Message Cannot Be Empty!")]
         [StringLength(500, ErrorMessage = "Message Cannot Exceed 500 Characters!")]
         public string Message { get; set; }

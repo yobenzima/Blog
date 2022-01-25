@@ -41,7 +41,7 @@ namespace Blog.API.Controllers
             catch (Exception e)
             {
                 mLogger.LogError($"Error occurred in GetAllPosts action: {e.Message}");
-                return StatusCode(500, $"Internal Server Error : {e.Message}");
+                return StatusCode(500, $"Internal Server Error");
             }
         }
 
@@ -69,7 +69,7 @@ namespace Blog.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreatePost([FromBody] PostCreateDTO post)
+        public async Task<IActionResult> CreatePost([FromBody] Post post)
         {
             try
             {
@@ -96,66 +96,5 @@ namespace Blog.API.Controllers
                 return StatusCode(500, "Internal Server Error");
             }
         }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdatePost(int id, [FromBody] PostUpdateDTO post)
-        {
-            try
-            {
-                if (post is null)
-                {
-                    return BadRequest("Post object is null!");
-                }
-                if(!ModelState.IsValid)
-                {
-                    return BadRequest("Invalid model object!");
-                }
-
-                var tPost = await mRepositoryWrapper.Post.GetPostById(id);
-
-                if (tPost is null)
-                {
-                    return NotFound();
-                }
-
-                mMapper.Map(post, tPost);
-                tPost.UpdateTS = DateTime.Now; // Update the time post was amended
-
-                mRepositoryWrapper.Post.UpdatePost(tPost);
-                await mRepositoryWrapper.SaveAsync();
-
-                return NoContent();
-            }
-            catch (Exception e)
-            {
-                mLogger.LogError($"Error occurred in CreatePost action: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
-            }
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePost(int id)
-        {
-            try
-            {
-
-                var tPost = await mRepositoryWrapper.Post.GetPostById(id);
-                if (tPost is null)
-                {
-                    return NotFound();
-                }
-
-                mRepositoryWrapper.Post.DeletePost(tPost);
-                await mRepositoryWrapper.SaveAsync();
-
-                return NoContent();
-            }
-            catch (Exception e)
-            {
-                mLogger.LogError($"Error occurred in DeletePost action: {e.Message}");
-                return StatusCode(500, "Internal Server Error");
-            }
-        }
-
     }
 }

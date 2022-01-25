@@ -69,7 +69,7 @@ namespace Blog.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateContact([FromBody] ContactCreateDTO contact)
+        public async Task<IActionResult> CreateContact([FromBody] Contact contact)
         {
             try
             {
