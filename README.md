@@ -7,12 +7,12 @@ https://github.com/yobenzima/Blog
 
 ## Screenshots
 
+
 ## Brief Introduction
 The application is built using ASP.NET Core 5. 
 This is both the API and front end. 
 The front end connects to the REST API using HttpClient calls.
 Microsoft SQL Server is used for the back-end database. 
-
 
 ## Project Structure
 There are 5 projects that make up the application. All these projects would have easily been separated by a folder structure.
@@ -37,9 +37,8 @@ The structure was preferred because it breaks down the project into smaller piec
 2. Restore Nuget Packages
 3. Build solution
 4. Deploy REST webservice to (IIS)
-5. In the following controllers in Blog.Web project change the "http://localhost:8085" in mAPIBaseUrl variable to point to the url where REST API is running. The "/api" part must be left intact:
-	(a). ContactController
-	(b). PostController
+5. In the ContactController and PostController controllers in Blog.Web project change the "http://localhost:8085" in mAPIBaseUrl variable to point to the url where REST API is deployed. 
+   NOTE: The "/api" part must be left intact
 
 ## Built With
 - ASP.NET Core
