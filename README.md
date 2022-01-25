@@ -39,7 +39,17 @@ The structure was preferred because it breaks down the project into smaller piec
 4. Deploy REST webservice to (IIS)
 5. In the ContactController and PostController controllers in Blog.Web project change the "http://localhost:8085" in mAPIBaseUrl variable to point to the url where REST API is deployed. 
    NOTE: The "/api" part must be left intact
-
+ 
+ ## Database Migrations
+ Migrations will automatiacally create the database structure. Currently only two tables are used: Post and Contact. Other tables that are created are  ASP.NET Identity User tables for Authentication and Authorization (still to be implemented)
+ 1. In the Blog.API project, provide the relevant connection string in the appsettings.json file. Use relevant credentials depending on your environment/setup.
+ 2. in the Solutin Explorer  - make sure the Blog.API project is set up as the Startup Project
+ 3. Then navigate to the Blog.Entities project 
+ 4. Run the database migrations as follows:
+    - Using Package Manager Console --> Run: Update-Database (to use the existing migrations) or 
+    - Using (.NET) Command Line --> Run: dotnet ef database update
+ 5. You can alternatively create your own migration and run it.
+   
 ## Built With
 - ASP.NET Core
 - .NET C#
@@ -53,4 +63,5 @@ The structure was preferred because it breaks down the project into smaller piec
 - Add proper styling in front end
 - Implement Authentication and Authorisation - to only allow Admin to create posts (now anyone can create and read posts)
 - Create separate user interfaces using React/Angular/VueJS or any other front end User Interface library
-- Configure BaseUrl (mAPIBaseUrl) in appsettings.json. This is now hard-coded into the controllers
+- Configure BaseUrl (mAPIBaseUrl) in appsettings.json. This is now hard-coded into the controller
+- Make web interface fully responsive.
