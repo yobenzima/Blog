@@ -8,6 +8,7 @@ https://github.com/yobenzima/Blog
 ## Screenshots
 
 
+
 ## Brief Introduction
 The application is built using ASP.NET Core 5. 
 This is both the API and front end. 
