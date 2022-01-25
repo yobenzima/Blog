@@ -1,0 +1,41 @@
+﻿@model Post
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Post Details</h2>
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th hidden="">
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ContentBody)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td hidden="">
+                    @Html.DisplayFor(model => model.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.ContentBody)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div>
+    <a asp-action="AllPosts">Back to List</a>
+</div>

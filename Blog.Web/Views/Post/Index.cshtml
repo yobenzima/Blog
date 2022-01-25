@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Post>
+
+@{
+    ViewData["Title"] = "Post";
+}
+
+<div class="container">
+    <h1 class="display-4">Posts</h1>
+    <div>
+        <ul>
+            @foreach (var tPost in Model)
+            {
+                <li>
+                    <a asp-controller="Post" asp-action="Post" asp-route-id="@tPost.Id">
+                        @tPost.Title
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
